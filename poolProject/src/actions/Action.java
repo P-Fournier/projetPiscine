@@ -2,17 +2,17 @@ package actions;
 
 public abstract class Action {
 	
-	abstract boolean isReady();
+	public abstract boolean isReady();
 
-	abstract boolean isFinished();
+	public abstract boolean isFinished();
 	
-	abstract void reallyDoStep();
+	protected abstract void reallyDoStep();
 	
-	protected boolean isInProgress(){
+	public boolean isInProgress(){
 		return !isReady() && !isFinished();
 	}
 	
-	protected void doStep(){
+	public void doStep(){
 		if(!isFinished()){
 			reallyDoStep();
 		}

@@ -19,7 +19,7 @@ public abstract class Scheduler extends Action {
 		return isInitialized && super.isInProgress();
 	}
 	
-	public boolean isReady(){
+	public  boolean isReady(){
 		return (isReady&&isInitialized);
 	}
 	
@@ -32,21 +32,26 @@ public abstract class Scheduler extends Action {
 		super.doStep();
 	}
 	
-	public void reallyDoStep(){
-		try {
-			Action nextAction = getNextAction() ;
-			nextAction.doStep();
-			if (nextAction.isFinished()){
-				removeFinishedAction();
-			}
-		}catch(ActionFinishedException aie){
-			aie.printStackTrace();
-		}
+	@Override
+    protected void reallyDoStep() {
+          try {
+                Action nextAction = getNextAction();
+                nextAction.doStep();
+                if (nextAction.isFinished()) {
+                      removeFinishedAction();
+                }
+          } catch (ActionFinishedException afe) {
+                throw new RuntimeException(
+                            "nextAction() should have made sure that the returned action is not finished");
+          } 
+    }
+	
+	public void addAction (Action action){
+			isInitialized = true;
+			actions.add(action);
 	}
 	
-	public abstract void addAction (Action action);
-	
-	protected abstract void removeFinishedAction();
+	protected abstract void removeFinishedAction() ;
 	
 	protected abstract Action getNextAction() throws ActionFinishedException;
 	

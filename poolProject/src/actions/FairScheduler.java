@@ -9,41 +9,26 @@ public class FairScheduler extends Scheduler {
 	public FairScheduler (){
 		super();
 	}
-	
-	@Override
-	public void addAction(Action action) {
-		actions.add(action);
-		if (!this.isInitialized){
-			this.isInitialized = true;
-			it = actions.iterator();
-		}
-	}
 
 	@Override
 	protected void removeFinishedAction() {
-		Iterator<Action> parcourt = actions.iterator();
-		while (parcourt.hasNext()){
-			Action a = parcourt.next();
-			if (a.isFinished()){
-				it.remove();
-			}
-		}
+		it.remove();
 	}
 
 	@Override
 	protected Action getNextAction() throws ActionFinishedException {
+		Action nextAction ;
 		if (it.hasNext()){
-			return it.next();
+			nextAction = it.next();
 		}else{
-			removeFinishedAction();
-			if (actions.isEmpty()){
-				throw new ActionFinishedException();
-			}else{
-				it = actions.iterator();
-				return it.next();
-			}
+			it = actions.iterator();
+			nextAction = getNextAction();
 		}
-		
+		if(nextAction.isFinished()){
+			throw new ActionFinishedException();
+		}else{
+			return nextAction;
+		}
 	}
 
 }

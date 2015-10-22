@@ -2,6 +2,7 @@ package actions;
 
 import ressource.Ressource;
 import ressource.RessourcePool;
+import ressource.RessourcefulUser;
 
 public class TakeRessourceAction<R extends Ressource> extends RessourcePoolAction<R>{
 	
@@ -10,13 +11,13 @@ public class TakeRessourceAction<R extends Ressource> extends RessourcePoolActio
 	}
 
 	@Override
-	boolean isReady() {
+	public boolean isReady() {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	boolean isFinished() {
+	public boolean isFinished() {
 		// TODO Auto-generated method stub
 		return false;
 	}

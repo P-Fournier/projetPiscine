@@ -4,6 +4,7 @@ import ressource.Basket;
 import ressource.BasketPool;
 import ressource.Cubicle;
 import ressource.CubiclePool;
+import ressource.RessourcefulUser;
 
 public class Swimmer extends SequentialScheduler {
 	private String name;

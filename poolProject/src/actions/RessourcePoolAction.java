@@ -2,6 +2,7 @@ package actions;
 
 import ressource.Ressource;
 import ressource.RessourcePool;
+import ressource.RessourcefulUser;
 
 public abstract class RessourcePoolAction <R extends Ressource> extends Action {
 	protected boolean isReady ;
