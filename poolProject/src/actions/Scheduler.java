@@ -43,7 +43,10 @@ public abstract class Scheduler extends Action {
           } catch (ActionFinishedException afe) {
                 throw new RuntimeException(
                             "nextAction() should have made sure that the returned action is not finished");
-          } 
+          }catch (ActionNotFinishedException anfe) {
+        	    throw new RuntimeException (
+        	    		"the action you tried to remove is not a finished action");
+          }
     }
 	
 	public void addAction (Action action){
@@ -51,8 +54,28 @@ public abstract class Scheduler extends Action {
 			actions.add(action);
 	}
 	
-	protected abstract void removeFinishedAction() ;
+	public boolean isInitialized() {
+		return isInitialized;
+	}
+
+	public void setInitialized(boolean isInitialized) {
+		this.isInitialized = isInitialized;
+	}
+
+	public List<Action> getActions() {
+		return actions;
+	}
+
+	public void setActions(List<Action> actions) {
+		this.actions = actions;
+	}
+
+	public void setReady(boolean isReady) {
+		this.isReady = isReady;
+	}
+
+	public abstract void removeFinishedAction() throws ActionNotFinishedException;
 	
-	protected abstract Action getNextAction() throws ActionFinishedException;
+	public abstract Action getNextAction() throws ActionFinishedException;
 	
 }

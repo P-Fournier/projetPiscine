@@ -9,12 +9,16 @@ public class SequentialScheduler extends Scheduler {
 	}
 
 	@Override
-	protected void removeFinishedAction() {
+	public void removeFinishedAction() throws ActionNotFinishedException  {
+		if (actions.get(0).isFinished()){	
 			actions.remove(0);
+		}else{
+			throw new ActionNotFinishedException();
+		}
 	}
 
 	@Override
-	protected Action getNextAction() throws ActionFinishedException {
+	public Action getNextAction() throws ActionFinishedException {
 		if (actions.get(0).isFinished()){
 			throw new ActionFinishedException();
 		}else{

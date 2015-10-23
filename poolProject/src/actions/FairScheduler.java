@@ -1,27 +1,33 @@
 package actions;
 
-import java.util.Iterator;
+import java.util.ListIterator;
 
 public class FairScheduler extends Scheduler {
 
-	Iterator<Action> it;
+	ListIterator<Action> it;
 	
 	public FairScheduler (){
 		super();
 	}
 
 	@Override
-	protected void removeFinishedAction() {
-		it.remove();
+	public void removeFinishedAction() throws ActionNotFinishedException{
+		if (it.next().isFinished()){
+			it.previous();
+			it.remove();
+		}else{
+			it.previous();
+			throw new ActionNotFinishedException();
+		}
 	}
 
 	@Override
-	protected Action getNextAction() throws ActionFinishedException {
+	public Action getNextAction() throws ActionFinishedException {
 		Action nextAction ;
 		if (it.hasNext()){
 			nextAction = it.next();
 		}else{
-			it = actions.iterator();
+			it = actions.listIterator();
 			nextAction = getNextAction();
 		}
 		if(nextAction.isFinished()){

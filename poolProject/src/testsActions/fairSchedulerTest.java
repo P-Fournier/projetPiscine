@@ -28,8 +28,8 @@ public class fairSchedulerTest extends schedulerTest {
 	}
 	
 	@Test
-	public void test() {
-		fail("Not yet implemented");
+	public void () {
+		
 	}
 
 }
